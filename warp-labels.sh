@@ -5,7 +5,7 @@ fsaverage=`jq -r '.fsaverage' config.json` # fsaverage
 apply_affine=`jq -r '.apply_affine' config.json` # for hcp, should be False
 labeldir=`jq -r '.label' config.json` # path to surface label datatype
 rois=`jq -r '.rois' config.json` # set up only so all rois can be added into one directory without additional app
-labels=(`ls ${labeldir}`)
+labels=(`find ${labeldir}/*.gii`)
 surfaces="pial white inflated sphere.reg"
 hemispheres="lh rh"
 
