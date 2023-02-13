@@ -1,0 +1,8 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=8,walltime=1:30:00
+#PBS -N app-warp-standard-label-rois
+#PBS -l vmem=20gb
+#PBS -V
+
+# warp labels
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/connectome_workbench:1.5.0 ./warp-labels.sh
