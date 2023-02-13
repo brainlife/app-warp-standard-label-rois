@@ -4,11 +4,13 @@ freesurfer=`jq -r '.freesurfer' config.json` # /home/bacaron/Desktop/tracking-te
 fsaverage=`jq -r '.fsaverage' config.json` # fsaverage
 apply_affine=`jq -r '.apply_affine' config.json` # for hcp, should be False
 labeldir=`jq -r '.label' config.json` # path to surface label datatype
+rois=`jq -r '.rois' config.json` # set up only so all rois can be added into one directory without additional app
 labels=(`ls ${labeldir}`)
 surfaces="pial white inflated sphere.reg"
 hemispheres="lh rh"
 
 [ ! -d ./freesurfer ] && cp -R ${freesurfer} ./freesurfer && freesurfer="./freesurfer"
+[ ! -d ${rois} ] && mkdir rois && cp -R ${rois} ./rois/rois/ || mkdir rois rois/rois
 [ ! -d ./fsaverage ] && cp -R /usr/local/freesurfer/subjects/${fsaverage} ./fsaverage && fsaverage="./fsaverage"
 
 [ ! -f ${freesurfer}/mri/brain.finalsurfs.nii.gz ] && mri_convert ${freesurfer}/mri/brain.finalsurfs.mgz ${freesurfer}/mri/brain.finalsurfs.nii.gz
