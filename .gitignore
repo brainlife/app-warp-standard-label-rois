@@ -1,0 +1,6 @@
+config.json
+license.txt
+labels_out/*
+raw/*
+rois/*
+verts/*

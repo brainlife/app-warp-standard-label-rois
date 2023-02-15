@@ -4,5 +4,8 @@
 #PBS -l vmem=20gb
 #PBS -V
 
+[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
+cat $FREESURFER_LICENSE > license.txt
+
 # warp labels
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/connectome_workbench:1.5.0 ./warp-labels.sh
