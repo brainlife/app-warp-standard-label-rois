@@ -17,7 +17,8 @@ else
 fi
 
 # make some directories
-[ ! -d ${rois} ] && mkdir rois && cp -R ${rois} ./rois/rois/ || mkdir rois rois/rois
+[ ! -d ./rois ] && mkdir rois rois/rois
+[ -d ${rois} ] && cp -R ${rois}/* ./rois/rois/
 [ ! -d verts ] && mkdir verts verts/left verts/right
 [ ! -d labels_out ] && mkdir labels_out
 [ ! -d labels ] && mkdir labels
