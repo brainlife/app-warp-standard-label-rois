@@ -118,9 +118,9 @@ done
 # final check
 if [ ! -f labels_out/left.gii ] || [ ! -f labels_out/right.gii ]; then
 	echo "something went wrong. check logs and derivative files"
-	# exit 1
+	exit 1
 else
 	echo "complete"
 	mv *.gii ./freesurfer ./fsaverage ./labels ./raw/
-	# exit 0
+	exit 0
 fi
