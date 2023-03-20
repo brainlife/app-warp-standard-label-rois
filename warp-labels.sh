@@ -12,8 +12,8 @@ rois=`jq -r '.rois' config.json` # set up only so all rois can be added into one
 
 if [ ! -f ${label_json} ]; then
 	name="parcellation"
-else
-	name=`jq -r '.name' ${label_json}` # pmhg
+# else
+# 	name=`jq -r '.name' ${label_json}` # pmhg
 fi
 
 # make some directories
