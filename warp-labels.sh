@@ -11,7 +11,7 @@ label_json=`jq -r '.label_json' config.json` # path to label.json
 rois=`jq -r '.rois' config.json` # set up only so all rois can be added into one directory without additional app
 
 if [ ! -f ${label_json} ]; then
-	name="label"
+	name="parcellation"
 else
 	name=`jq -r '.name' ${label_json}` # pmhg
 fi
