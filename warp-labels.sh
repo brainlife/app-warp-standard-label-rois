@@ -17,8 +17,7 @@ else
 fi
 
 # make some directories
-[ ! -d ./rois ] && mkdir rois rois/rois
-[ -d ${rois} ] && cp -R ${rois}/* ./rois/rois/
+[ ! -d ./parcellation ] && mkdir parcellation
 [ ! -d verts ] && mkdir verts verts/left verts/right
 [ ! -d labels_out ] && mkdir labels_out
 [ ! -d labels ] && mkdir labels
@@ -95,7 +94,7 @@ do
 	hem=${labname%%.*}
 	echo $name
 	[ ! -f ./${name}.native.label.gii ] && wb_command -label-resample ${labs} ${fsaverage}/${hem}.sphere.reg.surf.gii ./${hem}.sphere.reg.surf.gii ADAP_BARY_AREA -area-surfs ${fsaverage}/${hem}.white.surf.gii ./${hem}.white.surf.gii ./${hem}.${name}.native.label.gii
-	[ ! -f ./rois/rois/${name}.nii.gz ] && wb_command -label-to-volume-mapping ./${hem}.${name}.native.label.gii ./${hem}.white.surf.gii ${freesurfer}/mri/brain.finalsurfs.nii.gz ./rois/rois/${hem}.${name}.nii.gz -ribbon-constrained ./${hem}.white.surf.gii ./${hem}.pial.surf.gii
+	[ ! -f ./${hem}.parc.nii.gz ] && wb_command -label-to-volume-mapping ./${hem}.${name}.native.label.gii ./${hem}.white.surf.gii ${freesurfer}/mri/brain.finalsurfs.nii.gz ./${hem}.parc.nii.gz -ribbon-constrained ./${hem}.white.surf.gii ./${hem}.pial.surf.gii
 done
 
 # copy files to output directories
@@ -113,7 +112,7 @@ do
 	done
 
 	[ ! -f labels_out/${hemi}.gii ] && cp ${hem}.${name}.native.label.gii ./labels_out/${hemi}.gii
-	[ ! -f labels_out/label.json ] && cp ${label_json} ./labels_out/label.json
+	# [ ! -f labels_out/label.json ] && cp ${label_json} ./labels_out/label.json
 done
 
 # final check
@@ -122,6 +121,6 @@ if [ ! -f labels_out/left.gii ] || [ ! -f labels_out/right.gii ]; then
 	exit 1
 else
 	echo "complete"
-	mv *.gii ./freesurfer ./fsaverage ./labels ./raw/
+	# mv *.gii ./freesurfer ./fsaverage ./labels ./raw/
 	exit 0
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l nodes=1:ppn=8,walltime=1:30:00
-#PBS -N app-warp-standard-label-rois
+#PBS -N app-warp-standard-label-parcellation
 #PBS -l vmem=20gb
 #PBS -V
 
@@ -9,3 +9,17 @@ echo $FREESURFER_LICENSE > license.txt
 
 # warp labels
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/connectome_workbench:1.5.0 ./warp-labels.sh
+
+# grab labels
+ [ ! -f lh.label_text.txt ] || [ ! -f rh.label_text.txt ] && time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/connectome_workbench:1.5.0 ./labels.sh
+
+# combine into single parcellation and update labels
+[ ! -f ./parcellation/parc.nii.gz ] || [ ! -f ./parcellation/label.json ] && time singularity exec -e docker://brainlife/dipy:1.4.1 ./build_parc.py
+
+if [ ! -f ./parcellation/parc.nii.gz ] || [ ! -f ./parcellation/label.json ]; then
+	echo "something went wrong. check logs and derivatives"
+	exit 1
+fi
+
+cp parcellation/label.json ./labels_out/label.json
+mv *.nii.gz *.txt *.gii ./raw/ && echo "complete"
