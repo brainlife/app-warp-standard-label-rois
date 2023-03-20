@@ -50,8 +50,8 @@ do
 done
 
 # convert labels to proper naming schema for connectome workbench then set loopable variable for labels
-[ ! -f labels/lh.parcellation.label.gii ] && cp ${label_left} labels/lh.${name}.label.gii && wb_command -set-structure labels/lh.parcellation.label.gii "CORTEX_LEFT"
-[ ! -f labels/rh.parcellation.label.gii ] && cp ${label_right} labels/rh.${name}.label.gii && wb_command -set-structure labels/rh.parcellation.label.gii "CORTEX_RIGHT"
+[ ! -f labels/lh.parcellation.label.gii ] && cp ${label_left} labels/lh.parcellation.label.gii && wb_command -set-structure labels/lh.parcellation.label.gii "CORTEX_LEFT"
+[ ! -f labels/rh.parcellation.label.gii ] && cp ${label_right} labels/rh.parcellation.label.gii && wb_command -set-structure labels/rh.parcellation.label.gii "CORTEX_RIGHT"
 labels=(`find labels/*.gii`)
 
 # # convert brain.finalsurfs to nii
