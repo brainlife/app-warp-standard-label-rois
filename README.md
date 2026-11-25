@@ -14,28 +14,17 @@
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
-> **Resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric parcellation in FreeSurfer space with Connectome Workbench 1.5.0.**
+**Resamples a template-surface parcellation to a subject's FreeSurfer surfaces and builds a volumetric parcellation in FreeSurfer space with Connectome Workbench 1.5.0.**
 
 Resamples left and right label GIFTIs from the template sphere to the subject sphere (wb_command -label-resample), maps them into the FreeSurfer volume with ribbon-constrained label-to-volume mapping, exports the label tables and combines both hemispheres into parc.nii.gz with a label.json. Use it to obtain a subject-space volumetric version of a surface atlas, for example for connectomics.
 
-| | |
-|---|---|
-| 📥 **Inputs** | `neuro/freesurfer` · `neuro/surface/vertices` · `neuro/surface/data` |
-| 📤 **Outputs** | `neuro/parcellation/volume` · `neuro/surface/data` · `neuro/surface/vertices` · `raw` |
-| 🐳 **Container** | `brainlife/connectome_workbench:1.5.0` |
-| ⚙️ **Resources** | 8 CPUs · 1.5 h walltime |
-| 🔑 **Requires** | `FREESURFER_LICENSE` |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748) |
-
-#### 📥 Inputs
+Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748)
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `freesurfer` | `neuro/freesurfer` | yes | FreeSurfer recon-all output of the target subject. |
 | `standard_verts` | `neuro/surface/vertices` | yes | Template (for example fsaverage) surfaces for left and right hemispheres on which the labels are defined. Must include ?h.sphere.reg.gii; the App exits otherwise. |
 | `standard_label` | `neuro/surface/data` | yes | Left and right GIFTI label files on the template surfaces, with a label.json key. |
-
-#### 📤 Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
@@ -44,14 +33,11 @@ Resamples left and right label GIFTIs from the template sphere to the subject sp
 | `verts` | `neuro/surface/vertices` | Subject pial, white, inflated and sphere.reg surfaces in GIFTI format. |
 | `raw` | `raw` | Intermediate surfaces, labels and volumes. |
 
-<details>
-<summary><b>⚙️ Parameters</b> (1)</summary>
-
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `apply_affine` | boolean | `false` | This may be an optional parameter for your data. Sometimes the correspondence between freesurfer volume and surface space is off. This will apply a fix in those situations if true. if the final ROIs don't properly align, try rerunning and setting this to true |
 
-</details>
+Runtime: container `brainlife/connectome_workbench:1.5.0`; 8 CPUs; 1.5 h walltime; needs `FREESURFER_LICENSE`.
 
 <!-- brainlife-app:end -->
 
