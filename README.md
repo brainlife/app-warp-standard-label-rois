@@ -10,9 +10,9 @@
   <a href="https://github.com/brainlife/app-warp-standard-label-rois/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-> 📍 **This branch, `parcellation-app-v1.0_wb-v1.5.0`, is the brainlife.io App Warp and resample surface label annotation to parcellation volume (Freesurfer space)** ([doi:10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748)). The other Apps in this repository are listed under **Versions on brainlife.io** below.
+> **This branch, `parcellation-app-v1.0_wb-v1.5.0`, is the brainlife.io App Warp and resample surface label annotation to parcellation volume (Freesurfer space)** ([doi:10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748)). The other Apps in this repository are listed under **Versions on brainlife.io** below.
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -22,14 +22,14 @@ Resamples left and right label GIFTIs from the template sphere to the subject sp
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/freesurfer` · `neuro/surface/vertices` · `neuro/surface/data` |
-| 📤 **Outputs** | `neuro/parcellation/volume` · `neuro/surface/data` · `neuro/surface/vertices` · `raw` |
-| 🐳 **Container** | `brainlife/connectome_workbench:1.5.0` |
-| ⚙️ **Resources** | 8 CPUs · 1.5 h walltime |
-| 🔑 **Requires** | `FREESURFER_LICENSE` |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748) |
+| **Inputs** | `neuro/freesurfer` · `neuro/surface/vertices` · `neuro/surface/data` |
+| **Outputs** | `neuro/parcellation/volume` · `neuro/surface/data` · `neuro/surface/vertices` · `raw` |
+| **Container** | `brainlife/connectome_workbench:1.5.0` |
+| **Resources** | 8 CPUs · 1.5 h walltime |
+| **Requires** | `FREESURFER_LICENSE` |
+| **Run it** | [doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
@@ -37,7 +37,7 @@ Resamples left and right label GIFTIs from the template sphere to the subject sp
 | `standard_verts` | `neuro/surface/vertices` | yes | Template (for example fsaverage) surfaces for left and right hemispheres on which the labels are defined. Must include ?h.sphere.reg.gii; the App exits otherwise. |
 | `standard_label` | `neuro/surface/data` | yes | Left and right GIFTI label files on the template surfaces, with a label.json key. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
@@ -47,7 +47,7 @@ Resamples left and right label GIFTIs from the template sphere to the subject sp
 | `raw` | `raw` | Intermediate surfaces, labels and volumes. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (1)</summary>
+<summary><b>Parameters</b> (1)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -57,7 +57,7 @@ Resamples left and right label GIFTIs from the template sphere to the subject sp
 
 <!-- brainlife-app:end -->
 
-## 🏷️ Versions on brainlife.io
+## Versions on brainlife.io
 
 Each App is built from its own branch of this repository.
 
@@ -66,16 +66,16 @@ Each App is built from its own branch of this repository.
 | **Warp and resample surface label annotation to parcellation volume (Freesurfer space)** (this branch) | `neuro/parcellation/volume` | [`parcellation-app-v1.0_wb-v1.5.0`](https://github.com/brainlife/app-warp-standard-label-rois/tree/parcellation-app-v1.0_wb-v1.5.0) | [doi:10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748) | current |
 | Warp and resample surface label ROIs to volume (Freesurfer space) | `neuro/rois` | [`app-v1.0_wb-v1.5.0`](https://github.com/brainlife/app-warp-standard-label-rois/tree/app-v1.0_wb-v1.5.0) | [doi:10.25663/brainlife.app.731](https://doi.org/10.25663/brainlife.app.731) | current |
 
-## 🔬 How it works
+## How it works
 
 1. The template surfaces (`pial`, `white`, `inflated`, `sphere.reg`) and the subject's FreeSurfer surfaces are converted to GIFTI.
 2. Each hemisphere's label file is resampled from the template sphere to the subject sphere with `wb_command -label-resample` (`ADAP_BARY_AREA`, using the white surfaces as area surfaces).
 3. The resampled labels are mapped into the subject's FreeSurfer volume (`brain.finalsurfs`) with ribbon-constrained `wb_command -label-to-volume-mapping`.
 4. The **ROIs** App writes one ROI volume per hemisphere. The **parcellation** App also exports the label tables (`wb_command -label-export-table`) and combines both hemispheres into `parc.nii.gz` with a `label.json` (right-hemisphere values are offset by the number of left-hemisphere labels).
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/brainlife.app.748) (parcellation) or [doi.org/10.25663/brainlife.app.731](https://doi.org/10.25663/brainlife.app.731) (ROIs) and choose:
 
@@ -86,7 +86,7 @@ Open the App at [doi.org/10.25663/brainlife.app.748](https://doi.org/10.25663/br
 
 Press **Execute**. The ROIs or the parcellation, the labels on the subject's native surfaces and the subject surfaces in GIFTI format are archived to your project.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/), [`jq`](https://jqlang.github.io/jq/) and a [FreeSurfer license](https://surfer.nmr.mgh.harvard.edu/registration.html). `main` runs in `brainlife/connectome_workbench:1.5.0` (and `brainlife/dipy:1.4.1` for the parcellation step).
 
@@ -114,7 +114,7 @@ You need [Singularity/Apptainer](https://apptainer.org/), [`jq`](https://jqlang.
    ./main
    ```
 
-## 📦 Outputs
+## Outputs
 
 ```text
 rois/rois/       lh.<name>.nii.gz and rh.<name>.nii.gz volume ROIs (ROIs App)
@@ -127,14 +127,14 @@ raw/             intermediate surfaces, labels and volumes
 
 `<name>` is the `name` field of the input `label.json` (or `label` when there is none).
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **`surface vertices input is missing sphere.reg…`**: the template surfaces must include `lh.sphere.reg.gii` and `rh.sphere.reg.gii`; they are needed to map between template and subject spaces.
 - **`Please set FREESURFER_LICENSE in .bashrc`**: export your FreeSurfer license in `FREESURFER_LICENSE` before running `./main`.
 - **`something went wrong. check logs and derivative files`**: the resampled label files were not produced; check the log. In the parcellation App, `something went wrong. check logs and derivatives` means `parc.nii.gz` or `label.json` was not produced.
 - **ROIs do not line up with the anatomy**: `apply_affine` is meant to correct a mismatch between FreeSurfer volume and surface coordinates (the `c_ras` offset, as in the HCP pipelines). In the current code the transform is computed but not applied to the surfaces, because the check uses a misspelled variable (`apply_afine`) in `warp-labels.sh`.
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -146,11 +146,11 @@ raw/             intermediate surfaces, labels and volumes
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Brad Caron
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -169,6 +169,6 @@ raw/             intermediate surfaces, labels and volumes
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 [MIT](https://github.com/brainlife/app-warp-standard-label-rois/blob/main/LICENSE). Connectome Workbench and FreeSurfer are distributed under their own licences.
